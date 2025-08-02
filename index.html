@@ -208,13 +208,14 @@
         }
 
         .header-icon {
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            opacity: 0.9;
+            opacity: 1;
             flex-shrink: 0;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
         }
 
         .crow-left {
@@ -230,7 +231,7 @@
         }
 
         .purple-crystal {
-            background-image: url('crow-it299-right.png');
+            background-image: url('crow-mm25-left.png');
         }
 
         .class-title-text {
@@ -476,8 +477,8 @@
             }
 
             .header-icon {
-                width: 25px;
-                height: 25px;
+                width: 35px;
+                height: 35px;
             }
         }
     </style>
@@ -493,7 +494,7 @@
         <div class="week-selector">
             <label for="weekSelect"><strong>Select Week:</strong></label>
             <select id="weekSelect" onchange="loadWeek()">
-                <option value="1">Week 1 (Current)</option>
+                <option value="1">Week 1</option>
                 <option value="2">Week 2</option>
                 <option value="3">Week 3</option>
                 <option value="4">Week 4</option>
