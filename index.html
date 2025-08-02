@@ -1025,13 +1025,10 @@
             let hasGrades = false;
 
             courseData[course][week].forEach(task => {
-                totalPossible += task.points;
+                // Only include tasks that have actual grades entered
                 if (task.completed && task.score !== null && !isNaN(task.score)) {
                     totalEarned += task.score;
-                    hasGrades = true;
-                } else if (task.completed) {
-                    // If completed but no grade entered, assume full points
-                    totalEarned += task.points;
+                    totalPossible += task.points;
                     hasGrades = true;
                 }
             });
@@ -1050,13 +1047,9 @@
 
             for (let week = 1; week <= 10; week++) {
                 courseData[course][week].forEach(task => {
+                    // Only include tasks that have actual grades entered
                     if (task.completed && task.score !== null && !isNaN(task.score)) {
                         totalEarned += task.score;
-                        totalPossible += task.points;
-                        hasGrades = true;
-                    } else if (task.completed) {
-                        // If completed but no grade entered, assume full points
-                        totalEarned += task.points;
                         totalPossible += task.points;
                         hasGrades = true;
                     }
