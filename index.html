@@ -890,12 +890,23 @@
                 it299Container.appendChild(taskElement);
             });
 
-            // Add class average for IT299
-            const it299Average = calculateClassAverage('it299');
-            if (it299Average) {
+            // Add grade info for IT299
+            const it299Weekly = calculateWeeklyAverage('it299', currentWeek);
+            const it299Cumulative = calculateCumulativeAverage('it299');
+            
+            if (it299Weekly || it299Cumulative) {
                 const averageDiv = document.createElement('div');
                 averageDiv.className = 'class-average';
-                averageDiv.innerHTML = `<div class="class-average-text">Class Average: ${it299Average}%</div>`;
+                
+                let content = '';
+                if (it299Weekly) {
+                    content += `<div class="class-average-text">Week ${currentWeek}: ${it299Weekly.percentage}% (${it299Weekly.earned}/${it299Weekly.possible} pts)</div>`;
+                }
+                if (it299Cumulative) {
+                    content += `<div class="class-average-text">Term Total: ${it299Cumulative.percentage}% (${it299Cumulative.earned}/${it299Cumulative.possible} pts)</div>`;
+                }
+                
+                averageDiv.innerHTML = content;
                 it299Container.appendChild(averageDiv);
             }
 
@@ -905,12 +916,23 @@
                 mm325Container.appendChild(taskElement);
             });
 
-            // Add class average for MM325
-            const mm325Average = calculateClassAverage('mm325');
-            if (mm325Average) {
+            // Add grade info for MM325
+            const mm325Weekly = calculateWeeklyAverage('mm325', currentWeek);
+            const mm325Cumulative = calculateCumulativeAverage('mm325');
+            
+            if (mm325Weekly || mm325Cumulative) {
                 const averageDiv = document.createElement('div');
                 averageDiv.className = 'class-average';
-                averageDiv.innerHTML = `<div class="class-average-text">Class Average: ${mm325Average}%</div>`;
+                
+                let content = '';
+                if (mm325Weekly) {
+                    content += `<div class="class-average-text">Week ${currentWeek}: ${mm325Weekly.percentage}% (${mm325Weekly.earned}/${mm325Weekly.possible} pts)</div>`;
+                }
+                if (mm325Cumulative) {
+                    content += `<div class="class-average-text">Term Total: ${mm325Cumulative.percentage}% (${mm325Cumulative.earned}/${mm325Cumulative.possible} pts)</div>`;
+                }
+                
+                averageDiv.innerHTML = content;
                 mm325Container.appendChild(averageDiv);
             }
 
@@ -997,22 +1019,55 @@
             input.focus();
         }
 
-        function calculateClassAverage(course) {
+        function calculateWeeklyAverage(course, week) {
+            let totalEarned = 0;
+            let totalPossible = 0;
+            let hasGrades = false;
+
+            courseData[course][week].forEach(task => {
+                totalPossible += task.points;
+                if (task.completed && task.score !== null && !isNaN(task.score)) {
+                    totalEarned += task.score;
+                    hasGrades = true;
+                } else if (task.completed) {
+                    // If completed but no grade entered, assume full points
+                    totalEarned += task.points;
+                    hasGrades = true;
+                }
+            });
+
+            return hasGrades ? {
+                percentage: ((totalEarned / totalPossible) * 100).toFixed(1),
+                earned: totalEarned,
+                possible: totalPossible
+            } : null;
+        }
+
+        function calculateCumulativeAverage(course) {
             let totalEarned = 0;
             let totalPossible = 0;
             let hasGrades = false;
 
             for (let week = 1; week <= 10; week++) {
                 courseData[course][week].forEach(task => {
-                    if (task.completed && task.score !== null) {
+                    if (task.completed && task.score !== null && !isNaN(task.score)) {
                         totalEarned += task.score;
+                        totalPossible += task.points;
+                        hasGrades = true;
+                    } else if (task.completed) {
+                        // If completed but no grade entered, assume full points
+                        totalEarned += task.points;
                         totalPossible += task.points;
                         hasGrades = true;
                     }
                 });
             }
 
-            return hasGrades ? ((totalEarned / totalPossible) * 100).toFixed(1) : null;
+            return hasGrades ? {
+                percentage: ((totalEarned / totalPossible) * 100).toFixed(1),
+                earned: totalEarned,
+                possible: totalPossible
+            } : null;
         }
 
         function toggleTask(course, index) {
