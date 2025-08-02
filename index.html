@@ -241,7 +241,7 @@
         .task-item {
             display: flex;
             align-items: center;
-            padding: 15px 5px 15px 12px;
+            padding: 15px 12px;
             margin-bottom: 12px;
             background: rgba(25, 15, 35, 0.4);
             border-radius: 12px;
@@ -931,7 +931,10 @@
             taskDiv.innerHTML = `
                 <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} 
                        onchange="toggleTask('${course}', ${index})">
-                <span class="task-text">${task.task}${gradeDisplay}</span>
+                <div class="task-text">
+                    <span>${task.task}</span>
+                    ${gradeDisplay}
+                </div>
                 <span class="task-points">${task.points} pts</span>
             `;
             
