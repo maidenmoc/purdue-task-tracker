@@ -18,17 +18,15 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            max-width: 100%;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #2d1b3d 0%, #4a2c5a 30%, #3e2144 70%, #2a1a35 100%);
             min-height: 100vh;
-            padding: 15px 10px;
+            padding: 20px;
             position: relative;
             overflow-x: hidden;
-            width: 100vw;
         }
 
         body::before {
@@ -47,12 +45,11 @@
         }
 
         .container {
-            max-width: 100%;
-            width: 100%;
-            margin: 0;
+            max-width: 1200px;
+            margin: 0 auto;
             background: rgba(25, 15, 35, 0.9);
-            border-radius: 20px;
-            padding: 20px 15px;
+            border-radius: 25px;
+            padding: 30px;
             box-shadow: 
                 0 25px 50px rgba(0, 0, 0, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1),
@@ -61,7 +58,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             z-index: 2;
-            overflow-x: hidden;
         }
 
         .container::before {
@@ -579,8 +575,8 @@
             }
             
             .container {
-                padding: 15px 10px;
-                border-radius: 15px;
+                padding: 20px;
+                margin: 10px;
             }
             
             .header {
@@ -670,7 +666,7 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-number" id="totalPoints">0</div>
-                    <div class="stat-label">Points Earned</div>
+                    <div class="stat-label">Total Points</div>
                 </div>
             </div>
         </div>
@@ -1040,11 +1036,11 @@
 
             document.getElementById('progressBar').style.width = progressPercentage + '%';
             document.getElementById('progressText').textContent = 
-                `${Math.round(progressPercentage)}% Complete (${completedTasks}/${totalTasks} tasks)`;
+                `${Math.round(progressPercentage)}% Complete (${completedTasks}/${totalTasks} tasks) • ${earnedPoints}/${totalPoints} points`;
             
             document.getElementById('totalTasks').textContent = totalTasks;
             document.getElementById('completedTasks').textContent = completedTasks;
-            document.getElementById('totalPoints').textContent = `${earnedPoints}/${totalPoints}`;
+            document.getElementById('totalPoints').textContent = totalPoints;
         }
 
         // Initialize the page
