@@ -1079,12 +1079,17 @@
             const completedTasks = allTasks.filter(task => task.completed).length;
             const totalPoints = allTasks.reduce((sum, task) => sum + task.points, 0);
             
-            // Calculate earned points
+            // Calculate earned points - only count tasks with actual grades entered
             const earnedPoints = allTasks.reduce((sum, task) => {
                 if (task.completed && task.score !== null && !isNaN(task.score)) {
                     return sum + task.score;
-                } else if (task.completed && (task.score === null || isNaN(task.score))) {
-                    // If completed but no grade entered, assume full points
+                }
+                return sum;
+            }, 0);
+            
+            // Calculate graded points (denominator for percentage)
+            const gradedPoints = allTasks.reduce((sum, task) => {
+                if (task.completed && task.score !== null && !isNaN(task.score)) {
                     return sum + task.points;
                 }
                 return sum;
@@ -1093,8 +1098,15 @@
             const progressPercentage = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
 
             document.getElementById('progressBar').style.width = progressPercentage + '%';
-            document.getElementById('progressText').textContent = 
-                `${Math.round(progressPercentage)}% Complete (${completedTasks}/${totalTasks} tasks) • ${earnedPoints}/${totalPoints} points`;
+            
+            // Show different text based on whether we have graded tasks
+            if (gradedPoints > 0) {
+                document.getElementById('progressText').textContent = 
+                    `${Math.round(progressPercentage)}% Complete (${completedTasks}/${totalTasks} tasks) • ${earnedPoints}/${gradedPoints} points graded`;
+            } else {
+                document.getElementById('progressText').textContent = 
+                    `${Math.round(progressPercentage)}% Complete (${completedTasks}/${totalTasks} tasks) • No grades entered yet`;
+            }
             
             document.getElementById('totalTasks').textContent = totalTasks;
             document.getElementById('completedTasks').textContent = completedTasks;
