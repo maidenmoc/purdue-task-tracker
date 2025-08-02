@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Study Grimoire</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#7c3aed">
+    <meta name="theme-color" content="#ff6b9d">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Study Grimoire">
@@ -75,7 +75,7 @@
 
         .header {
             background: url('Study%20Grimoire.png') center/contain no-repeat;
-            height: 180px;
+            height: 100px;
             border-radius: 20px;
             margin-bottom: 30px;
             display: flex;
@@ -181,13 +181,11 @@
         .class-title {
             display: flex;
             align-items: center;
-            justify-content: space-between;
             font-size: 1.4em;
             font-weight: 600;
             margin-bottom: 25px;
             padding: 18px;
             border-radius: 15px;
-            text-align: center;
             color: #f3e8ff;
             position: relative;
             letter-spacing: 0.5px;
@@ -230,14 +228,9 @@
             background-image: url('crow-mm25-actual-left.png');
         }
 
-        .purple-crystal {
-            background-image: url('crow-mm25-left.png');
-        }
-
         .class-title-text {
             flex-grow: 1;
-            text-align: center;
-            margin: 0 5px;
+            margin-left: 15px;
         }
 
         .task-item {
@@ -334,6 +327,10 @@
             font-weight: 600;
             font-family: 'Dancing Script', cursive;
             font-size: 1.8em;
+        }
+
+        .progress-section h3::before {
+            content: '🔮 ';
         }
 
         .progress-bar {
@@ -461,7 +458,7 @@
             }
             
             .header {
-                height: 140px;
+                height: 80px;
                 background-size: contain;
             }
 
@@ -511,9 +508,8 @@
         <div class="classes-container">
             <div class="class-section">
                 <div class="class-title it299-title">
-                    <div class="header-icon crow-left"></div>
-                    <div class="class-title-text">IT299 - IT Integrative Project</div>
                     <div class="header-icon moon-phases"></div>
+                    <div class="class-title-text">IT299 - IT Integrative Project</div>
                 </div>
                 <div id="it299-tasks"></div>
             </div>
@@ -522,7 +518,6 @@
                 <div class="class-title mm325-title">
                     <div class="header-icon crystal-ball"></div>
                     <div class="class-title-text">MM325 - Statistical Data Analysis</div>
-                    <div class="header-icon purple-crystal"></div>
                 </div>
                 <div id="mm325-tasks"></div>
             </div>
@@ -531,7 +526,7 @@
         <div class="mystical-border"></div>
 
         <div class="progress-section">
-            <h3>📊 Weekly Progress</h3>
+            <h3>Weekly Progress</h3>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar"></div>
             </div>
