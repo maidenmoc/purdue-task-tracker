@@ -269,6 +269,8 @@
             background: rgba(34, 197, 94, 0.1);
             border-left-color: #10b981;
             opacity: 0.8;
+            cursor: pointer;
+            position: relative;
         }
 
         .task-item.completed::before {
@@ -278,6 +280,123 @@
         .task-item.completed .task-text {
             text-decoration: line-through;
             color: #a3a3a3;
+        }
+
+        .task-item.grade-a {
+            background: rgba(168, 85, 247, 0.15);
+            border-left-color: #a855f7;
+        }
+
+        .task-item.grade-a::before {
+            background: linear-gradient(to bottom, #a855f7, #9333ea, #7c3aed);
+        }
+
+        .task-item.grade-b {
+            background: rgba(192, 132, 252, 0.15);
+            border-left-color: #c084fc;
+        }
+
+        .task-item.grade-b::before {
+            background: linear-gradient(to bottom, #c084fc, #a855f7, #9333ea);
+        }
+
+        .task-item.grade-c {
+            background: rgba(251, 191, 36, 0.15);
+            border-left-color: #fbbf24;
+        }
+
+        .task-item.grade-c::before {
+            background: linear-gradient(to bottom, #fbbf24, #f59e0b, #d97706);
+        }
+
+        .task-item.grade-d {
+            background: rgba(251, 146, 60, 0.15);
+            border-left-color: #fb923c;
+        }
+
+        .task-item.grade-d::before {
+            background: linear-gradient(to bottom, #fb923c, #ea580c, #dc2626);
+        }
+
+        .task-item.grade-f {
+            background: rgba(239, 68, 68, 0.15);
+            border-left-color: #ef4444;
+        }
+
+        .task-item.grade-f::before {
+            background: linear-gradient(to bottom, #ef4444, #dc2626, #b91c1c);
+        }
+
+        .grade-input {
+            position: absolute;
+            top: 50%;
+            right: 100px;
+            transform: translateY(-50%);
+            width: 60px;
+            padding: 4px 8px;
+            border: 2px solid rgba(168, 85, 247, 0.5);
+            border-radius: 15px;
+            background: rgba(25, 15, 35, 0.9);
+            color: #e9d5ff;
+            font-size: 0.9em;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .grade-input:focus {
+            outline: none;
+            border-color: #a855f7;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+        }
+
+        .grade-display {
+            font-size: 0.8em;
+            margin-left: 8px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .grade-a .grade-display {
+            background: rgba(168, 85, 247, 0.3);
+            color: #c084fc;
+        }
+
+        .grade-b .grade-display {
+            background: rgba(192, 132, 252, 0.3);
+            color: #ddd6fe;
+        }
+
+        .grade-c .grade-display {
+            background: rgba(251, 191, 36, 0.3);
+            color: #fde047;
+        }
+
+        .grade-d .grade-display {
+            background: rgba(251, 146, 60, 0.3);
+            color: #fed7aa;
+        }
+
+        .grade-f .grade-display {
+            background: rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+        }
+
+        .class-average {
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(168, 85, 247, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .class-average-text {
+            color: #c084fc;
+            font-weight: 600;
+            font-size: 0.9em;
+            font-family: 'Cinzel', serif;
         }
 
         .task-checkbox {
@@ -557,21 +676,21 @@
         const defaultCourseData = {
             it299: {
                 1: [
-                    { task: "Assignment 1", points: 40, completed: false },
-                    { task: "Assignment 2", points: 20, completed: false },
-                    { task: "Discussion Topic 1 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 1 (Student Response)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Student Response)", points: 5, completed: false },
-                    { task: "Seminar", points: 15, completed: true }
+                    { task: "Assignment 1", points: 40, completed: false, score: null },
+                    { task: "Assignment 2", points: 20, completed: false, score: null },
+                    { task: "Discussion Topic 1 (Initial Post)", points: 5, completed: false, score: null },
+                    { task: "Discussion Topic 1 (Student Response)", points: 5, completed: false, score: null },
+                    { task: "Discussion Topic 2 (Initial Post)", points: 5, completed: false, score: null },
+                    { task: "Discussion Topic 2 (Student Response)", points: 5, completed: false, score: null },
+                    { task: "Seminar", points: 15, completed: true, score: 15 }
                 ],
                 2: [
-                    { task: "Assignment", points: 60, completed: false },
-                    { task: "Discussion Topic 1 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 1 (Student Response)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Student Response)", points: 5, completed: false },
-                    { task: "Seminar", points: 15, completed: false }
+                    { task: "Assignment", points: 60, completed: false, score: null },
+                    { task: "Discussion Topic 1 (Initial Post)", points: 5, completed: false, score: null },
+                    { task: "Discussion Topic 1 (Student Response)", points: 5, completed: false, score: null },
+                    { task: "Discussion Topic 2 (Initial Post)", points: 5, completed: false, score: null },
+                    { task: "Discussion Topic 2 (Student Response)", points: 5, completed: false, score: null },
+                    { task: "Seminar", points: 15, completed: false, score: null }
                 ],
                 3: [
                     { task: "Assignment", points: 60, completed: false },
@@ -774,16 +893,97 @@
 
         function createTaskElement(task, course, index) {
             const taskDiv = document.createElement('div');
-            taskDiv.className = `task-item ${task.completed ? 'completed' : ''}`;
+            const gradeClass = getGradeClass(task);
+            taskDiv.className = `task-item ${task.completed ? 'completed' : ''} ${gradeClass}`;
+            
+            let gradeDisplay = '';
+            if (task.completed && task.score !== null) {
+                const percentage = ((task.score / task.points) * 100).toFixed(0);
+                gradeDisplay = `<span class="grade-display">${task.score}/${task.points} (${percentage}%)</span>`;
+            }
             
             taskDiv.innerHTML = `
                 <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} 
                        onchange="toggleTask('${course}', ${index})">
-                <span class="task-text">${task.task}</span>
+                <span class="task-text">${task.task}${gradeDisplay}</span>
                 <span class="task-points">${task.points} pts</span>
             `;
             
+            // Add click listener for completed tasks to enter score
+            if (task.completed) {
+                taskDiv.addEventListener('click', (e) => {
+                    if (e.target.type !== 'checkbox') {
+                        showGradeInput(taskDiv, course, index, task);
+                    }
+                });
+            }
+            
             return taskDiv;
+        }
+
+        function getGradeClass(task) {
+            if (!task.completed || task.score === null) return '';
+            
+            const percentage = (task.score / task.points) * 100;
+            if (percentage >= 90) return 'grade-a';
+            if (percentage >= 80) return 'grade-b';
+            if (percentage >= 70) return 'grade-c';
+            if (percentage >= 60) return 'grade-d';
+            return 'grade-f';
+        }
+
+        function showGradeInput(taskDiv, course, index, task) {
+            // Remove existing input if any
+            const existingInput = taskDiv.querySelector('.grade-input');
+            if (existingInput) {
+                existingInput.remove();
+            }
+
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.className = 'grade-input';
+            input.placeholder = 'Score';
+            input.min = '0';
+            input.max = task.points;
+            input.step = '0.5';
+            input.value = task.score || '';
+
+            input.addEventListener('blur', () => {
+                const score = parseFloat(input.value);
+                if (!isNaN(score) && score >= 0 && score <= task.points) {
+                    courseData[course][currentWeek][index].score = score;
+                    saveData();
+                    renderTasks();
+                }
+                input.remove();
+            });
+
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    input.blur();
+                }
+            });
+
+            taskDiv.appendChild(input);
+            input.focus();
+        }
+
+        function calculateClassAverage(course) {
+            let totalEarned = 0;
+            let totalPossible = 0;
+            let hasGrades = false;
+
+            for (let week = 1; week <= 10; week++) {
+                courseData[course][week].forEach(task => {
+                    if (task.completed && task.score !== null) {
+                        totalEarned += task.score;
+                        totalPossible += task.points;
+                        hasGrades = true;
+                    }
+                });
+            }
+
+            return hasGrades ? ((totalEarned / totalPossible) * 100).toFixed(1) : null;
         }
 
         function toggleTask(course, index) {
