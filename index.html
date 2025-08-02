@@ -18,16 +18,17 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            max-width: 100%;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #2d1b3d 0%, #4a2c5a 30%, #3e2144 70%, #2a1a35 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px 10px;
             position: relative;
             overflow-x: hidden;
-            max-width: 100vw;
+            width: 100vw;
         }
 
         body::before {
@@ -46,11 +47,12 @@
         }
 
         .container {
-            max-width: min(1200px, 95vw);
-            margin: 0 auto;
+            max-width: 100%;
+            width: 100%;
+            margin: 0;
             background: rgba(25, 15, 35, 0.9);
-            border-radius: 25px;
-            padding: 30px;
+            border-radius: 20px;
+            padding: 20px 15px;
             box-shadow: 
                 0 25px 50px rgba(0, 0, 0, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1),
@@ -577,8 +579,8 @@
             }
             
             .container {
-                padding: 20px;
-                margin: 10px;
+                padding: 15px 10px;
+                border-radius: 15px;
             }
             
             .header {
@@ -668,7 +670,7 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-number" id="totalPoints">0</div>
-                    <div class="stat-label">Total Points</div>
+                    <div class="stat-label">Points Earned</div>
                 </div>
             </div>
         </div>
@@ -1022,6 +1024,18 @@
             const totalTasks = allTasks.length;
             const completedTasks = allTasks.filter(task => task.completed).length;
             const totalPoints = allTasks.reduce((sum, task) => sum + task.points, 0);
+            
+            // Calculate earned points
+            const earnedPoints = allTasks.reduce((sum, task) => {
+                if (task.completed && task.score !== null && !isNaN(task.score)) {
+                    return sum + task.score;
+                } else if (task.completed && (task.score === null || isNaN(task.score))) {
+                    // If completed but no grade entered, assume full points
+                    return sum + task.points;
+                }
+                return sum;
+            }, 0);
+            
             const progressPercentage = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
 
             document.getElementById('progressBar').style.width = progressPercentage + '%';
@@ -1030,7 +1044,7 @@
             
             document.getElementById('totalTasks').textContent = totalTasks;
             document.getElementById('completedTasks').textContent = completedTasks;
-            document.getElementById('totalPoints').textContent = totalPoints;
+            document.getElementById('totalPoints').textContent = `${earnedPoints}/${totalPoints}`;
         }
 
         // Initialize the page
