@@ -335,21 +335,126 @@
             background: linear-gradient(to bottom, #ef4444, #dc2626, #b91c1c);
         }
 
-        .grade-input {
-            position: absolute;
-            top: 50%;
-            right: 5px;
-            transform: translateY(-50%);
-            width: 40px;
-            padding: 2px 4px;
-            border: 1px solid rgba(168, 85, 247, 0.5);
-            border-radius: 8px;
-            background: rgba(25, 15, 35, 0.9);
-            color: #e9d5ff;
-            font-size: 16px;
+        .grade-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .grade-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .grade-modal-content {
+            background: linear-gradient(135deg, #2d1b3d 0%, #4a2c5a 100%);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(168, 85, 247, 0.3);
+            min-width: 300px;
             text-align: center;
-            backdrop-filter: blur(10px);
-            z-index: 10;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .grade-modal-icon {
+            width: 60px;
+            height: 60px;
+            background: url('app-icon.png') center/cover no-repeat;
+            border-radius: 12px;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .grade-modal.show .grade-modal-content {
+            transform: scale(1);
+        }
+
+        .grade-modal-title {
+            color: #e9d5ff;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .grade-modal-subtitle {
+            color: #c084fc;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .grade-modal-input {
+            width: 120px;
+            padding: 12px 16px;
+            border: 2px solid rgba(168, 85, 247, 0.5);
+            border-radius: 15px;
+            background: rgba(25, 15, 35, 0.8);
+            color: #e9d5ff;
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .grade-modal-input:focus {
+            outline: none;
+            border-color: #a855f7;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .grade-modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .grade-modal-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Cinzel', serif;
+        }
+
+        .grade-modal-save {
+            background: linear-gradient(45deg, #a855f7, #9333ea);
+            color: white;
+        }
+
+        .grade-modal-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+        }
+
+        .grade-modal-cancel {
+            background: rgba(75, 85, 99, 0.6);
+            color: #d1d5db;
+            border: 1px solid rgba(156, 163, 175, 0.3);
+        }
+
+        .grade-modal-cancel:hover {
+            background: rgba(75, 85, 99, 0.8);
         }
 
         .grade-input:focus {
@@ -679,6 +784,8 @@
         </div>
     </div>
 
+    <!-- Grade Modal will be inserted here -->
+
     <script>
         // Task data structure
         const defaultCourseData = {
@@ -984,39 +1091,71 @@
         }
 
         function showGradeInput(taskDiv, course, index, task) {
-            // Remove existing input if any
-            const existingInput = taskDiv.querySelector('.grade-input');
-            if (existingInput) {
-                existingInput.remove();
-            }
+            showGradeModal(course, index, task);
+        }
 
-            const input = document.createElement('input');
-            input.type = 'number';
-            input.className = 'grade-input';
-            input.placeholder = 'Score';
-            input.min = '0';
-            input.max = task.points;
-            input.step = '0.5';
-            input.value = task.score || '';
+        function showGradeModal(course, index, task) {
+            // Create modal
+            const modal = document.createElement('div');
+            modal.className = 'grade-modal';
+            modal.innerHTML = `
+                <div class="grade-modal-content">
+                    <div class="grade-modal-icon"></div>
+                    <div class="grade-modal-title">✨ Enter Grade ✨</div>
+                    <div class="grade-modal-subtitle">${task.task} (${task.points} pts)</div>
+                    <input type="number" class="grade-modal-input" 
+                           placeholder="Score" min="0" max="${task.points}" 
+                           step="0.5" value="${task.score || ''}">
+                    <div class="grade-modal-buttons">
+                        <button class="grade-modal-button grade-modal-save">Save</button>
+                        <button class="grade-modal-button grade-modal-cancel">Cancel</button>
+                    </div>
+                </div>
+            `;
 
-            input.addEventListener('blur', () => {
+            document.body.appendChild(modal);
+            
+            // Show modal with animation
+            setTimeout(() => modal.classList.add('show'), 10);
+            
+            const input = modal.querySelector('.grade-modal-input');
+            const saveBtn = modal.querySelector('.grade-modal-save');
+            const cancelBtn = modal.querySelector('.grade-modal-cancel');
+
+            // Focus input
+            input.focus();
+            input.select();
+
+            // Save grade
+            function saveGrade() {
                 const score = parseFloat(input.value);
                 if (!isNaN(score) && score >= 0 && score <= task.points) {
                     courseData[course][currentWeek][index].score = score;
                     saveData();
                     renderTasks();
                 }
-                input.remove();
-            });
+                closeModal();
+            }
 
+            // Close modal
+            function closeModal() {
+                modal.classList.remove('show');
+                setTimeout(() => document.body.removeChild(modal), 300);
+            }
+
+            // Event listeners
+            saveBtn.addEventListener('click', saveGrade);
+            cancelBtn.addEventListener('click', closeModal);
+            
             input.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    input.blur();
-                }
+                if (e.key === 'Enter') saveGrade();
+                if (e.key === 'Escape') closeModal();
             });
 
-            taskDiv.appendChild(input);
-            input.focus();
+            // Close on backdrop click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
         }
 
         function calculateWeeklyAverage(course, week) {
