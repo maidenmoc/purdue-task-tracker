@@ -537,6 +537,100 @@
             font-family: 'Cinzel', serif;
         }
 
+        .cumulative-grades {
+            background: rgba(25, 15, 35, 0.6);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            position: relative;
+        }
+
+        .cumulative-grades h3 {
+            color: #e9d5ff;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            text-align: center;
+            font-weight: 700;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .cumulative-grades h3::before {
+            content: '🌙✨ ';
+        }
+
+        .cumulative-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .cumulative-card {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            color: #f3e8ff;
+            padding: 25px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 
+                0 15px 30px rgba(99, 102, 241, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .cumulative-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            opacity: 0.3;
+        }
+
+        .cumulative-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .cumulative-course-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            font-family: 'Dancing Script', cursive;
+            opacity: 0.9;
+        }
+
+        .cumulative-percentage {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-family: 'Cinzel', serif;
+        }
+
+        .cumulative-details {
+            font-size: 0.9em;
+            opacity: 0.8;
+            position: relative;
+            z-index: 1;
+            font-family: 'Cinzel', serif;
+        }
+
+        .no-grades {
+            opacity: 0.6;
+            font-style: italic;
+        }
+
         .save-indicator {
             position: fixed;
             top: 20px;
@@ -708,6 +802,11 @@
                 width: 70px;
                 height: 70px;
             }
+
+            .cumulative-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
         }
     </style>
 </head>
@@ -774,6 +873,22 @@
                 <div class="stat-card">
                     <div class="stat-number" id="totalPoints">0</div>
                     <div class="stat-label">Total Points</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cumulative-grades">
+            <h3>Current Term Grades</h3>
+            <div class="cumulative-grid">
+                <div class="cumulative-card">
+                    <div class="cumulative-course-title">IT299 - IT Integrative Project</div>
+                    <div class="cumulative-percentage" id="it299-cumulative">--</div>
+                    <div class="cumulative-details" id="it299-details">No grades entered yet</div>
+                </div>
+                <div class="cumulative-card">
+                    <div class="cumulative-course-title">MM325 - Statistical Data Analysis</div>
+                    <div class="cumulative-percentage" id="mm325-cumulative">--</div>
+                    <div class="cumulative-details" id="mm325-details">No grades entered yet</div>
                 </div>
             </div>
         </div>
@@ -1027,6 +1142,7 @@
             }
 
             updateProgress();
+            updateCumulativeGrades();
         }
 
         function createTaskElement(task, course, index) {
@@ -1202,6 +1318,38 @@
                 earned: totalEarned,
                 possible: totalPossible
             } : null;
+        }
+
+        function updateCumulativeGrades() {
+            // Update IT299 cumulative grade
+            const it299Cumulative = calculateCumulativeAverage('it299');
+            const it299PercentageEl = document.getElementById('it299-cumulative');
+            const it299DetailsEl = document.getElementById('it299-details');
+            
+            if (it299Cumulative) {
+                it299PercentageEl.textContent = `${it299Cumulative.percentage}%`;
+                it299DetailsEl.textContent = `${it299Cumulative.earned}/${it299Cumulative.possible} points graded`;
+                it299PercentageEl.parentElement.classList.remove('no-grades');
+            } else {
+                it299PercentageEl.textContent = '--';
+                it299DetailsEl.textContent = 'No grades entered yet';
+                it299PercentageEl.parentElement.classList.add('no-grades');
+            }
+
+            // Update MM325 cumulative grade
+            const mm325Cumulative = calculateCumulativeAverage('mm325');
+            const mm325PercentageEl = document.getElementById('mm325-cumulative');
+            const mm325DetailsEl = document.getElementById('mm325-details');
+            
+            if (mm325Cumulative) {
+                mm325PercentageEl.textContent = `${mm325Cumulative.percentage}%`;
+                mm325DetailsEl.textContent = `${mm325Cumulative.earned}/${mm325Cumulative.possible} points graded`;
+                mm325PercentageEl.parentElement.classList.remove('no-grades');
+            } else {
+                mm325PercentageEl.textContent = '--';
+                mm325DetailsEl.textContent = 'No grades entered yet';
+                mm325PercentageEl.parentElement.classList.add('no-grades');
+            }
         }
 
         function updateProgress() {
