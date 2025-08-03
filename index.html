@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Study Grimoire</title>
-    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#d4a5b8">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -18,7 +17,7 @@
             overflow-x: hidden;
             max-width: 100vw;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
@@ -221,10 +220,6 @@
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
         }
 
-        .crow-left {
-            background-image: url('crow-it299-left.png');
-        }
-
         .moon-phases {
             background-image: url('crow-it299-actual-right.png');
         }
@@ -335,137 +330,36 @@
             background: linear-gradient(to bottom, #ef4444, #dc2626, #b91c1c);
         }
 
-        .grade-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .grade-modal.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .grade-modal-content {
-            background: linear-gradient(135deg, #2d1b3d 0%, #4a2c5a 100%);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(168, 85, 247, 0.3);
-            min-width: 300px;
-            text-align: center;
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
+        .task-checkbox {
+            margin-right: 15px;
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: #a855f7;
             position: relative;
         }
 
-        .grade-modal-icon {
-            width: 160px;
-            height: 160px;
-            background: url('study-grimoire-grades.png') center/contain no-repeat;
-            margin: 0 auto 25px auto;
-        }
-
-        .grade-modal.show .grade-modal-content {
-            transform: scale(1);
-        }
-
-        .grade-modal-title {
+        .task-text {
+            flex-grow: 1;
+            font-weight: 500;
             color: #e9d5ff;
-            font-size: 1.3em;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-family: 'Dancing Script', cursive;
-        }
-
-        .grade-modal-subtitle {
-            color: #c084fc;
-            font-size: 0.9em;
-            margin-bottom: 20px;
-            opacity: 0.8;
-        }
-
-        .grade-modal-input {
-            width: 120px;
-            padding: 12px 16px;
-            border: 2px solid rgba(168, 85, 247, 0.5);
-            border-radius: 15px;
-            background: rgba(25, 15, 35, 0.8);
-            color: #e9d5ff;
-            font-size: 18px;
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .grade-modal-input:focus {
-            outline: none;
-            border-color: #a855f7;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
-        }
-
-        .grade-modal-buttons {
+            font-size: 1em;
+            margin-right: 10px;
+            overflow: hidden;
+            min-width: 0;
             display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .grade-modal-button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 12px;
-            font-size: 0.9em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Cinzel', serif;
-        }
-
-        .grade-modal-save {
-            background: linear-gradient(45deg, #a855f7, #9333ea);
-            color: white;
-        }
-
-        .grade-modal-save:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
-        }
-
-        .grade-modal-cancel {
-            background: rgba(75, 85, 99, 0.6);
-            color: #d1d5db;
-            border: 1px solid rgba(156, 163, 175, 0.3);
-        }
-
-        .grade-modal-cancel:hover {
-            background: rgba(75, 85, 99, 0.8);
-        }
-
-        .grade-input:focus {
-            outline: none;
-            border-color: #a855f7;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+            flex-direction: column;
         }
 
         .grade-display {
-            font-size: 0.8em;
-            margin-left: 8px;
+            font-size: 0.7em;
+            margin-top: 4px;
             padding: 2px 6px;
-            border-radius: 10px;
+            border-radius: 8px;
             font-weight: 600;
+            white-space: nowrap;
+            display: inline-block;
+            align-self: flex-start;
         }
 
         .grade-a .grade-display {
@@ -493,6 +387,20 @@
             color: #fca5a5;
         }
 
+        .task-points {
+            font-weight: 600;
+            color: #c084fc;
+            background: rgba(168, 85, 247, 0.2);
+            padding: 4px 10px;
+            border-radius: 18px;
+            font-size: 0.85em;
+            border: 1px solid rgba(192, 132, 252, 0.3);
+            box-shadow: 0 2px 8px rgba(168, 85, 247, 0.2);
+            flex-shrink: 0;
+            margin-left: auto;
+            white-space: nowrap;
+        }
+
         .class-average {
             text-align: center;
             margin-top: 15px;
@@ -507,35 +415,6 @@
             font-weight: 600;
             font-size: 0.9em;
             font-family: 'Cinzel', serif;
-        }
-
-        .task-checkbox {
-            margin-right: 15px;
-            width: 22px;
-            height: 22px;
-            cursor: pointer;
-            accent-color: #a855f7;
-            position: relative;
-        }
-
-        .task-text {
-            flex-grow: 1;
-            font-weight: 500;
-            color: #e9d5ff;
-            font-size: 1em;
-        }
-
-        .task-points {
-            font-weight: 600;
-            color: #c084fc;
-            background: rgba(168, 85, 247, 0.2);
-            padding: 4px 10px;
-            border-radius: 18px;
-            font-size: 0.85em;
-            border: 1px solid rgba(192, 132, 252, 0.3);
-            box-shadow: 0 2px 8px rgba(168, 85, 247, 0.2);
-            flex-shrink: 0;
-            margin-left: 10px;
         }
 
         .progress-section {
@@ -678,6 +557,125 @@
             opacity: 1;
         }
 
+        .grade-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .grade-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .grade-modal-content {
+            background: linear-gradient(135deg, #2d1b3d 0%, #4a2c5a 100%);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(168, 85, 247, 0.3);
+            min-width: 300px;
+            text-align: center;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .grade-modal.show .grade-modal-content {
+            transform: scale(1);
+        }
+
+        .grade-modal-icon {
+            width: 160px;
+            height: 160px;
+            background: url('study-grimoire-grades.png') center/contain no-repeat;
+            margin: 0 auto 25px auto;
+        }
+
+        .grade-modal-title {
+            color: #e9d5ff;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .grade-modal-subtitle {
+            color: #c084fc;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .grade-modal-input {
+            width: 120px;
+            padding: 12px 16px;
+            border: 2px solid rgba(168, 85, 247, 0.5);
+            border-radius: 15px;
+            background: rgba(25, 15, 35, 0.8);
+            color: #e9d5ff;
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .grade-modal-input:focus {
+            outline: none;
+            border-color: #a855f7;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .grade-modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .grade-modal-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Cinzel', serif;
+        }
+
+        .grade-modal-save {
+            background: linear-gradient(45deg, #a855f7, #9333ea);
+            color: white;
+        }
+
+        .grade-modal-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+        }
+
+        .grade-modal-cancel {
+            background: rgba(75, 85, 99, 0.6);
+            color: #d1d5db;
+            border: 1px solid rgba(156, 163, 175, 0.3);
+        }
+
+        .grade-modal-cancel:hover {
+            background: rgba(75, 85, 99, 0.8);
+        }
+
         @media (max-width: 768px) {
             .classes-container {
                 grid-template-columns: 1fr;
@@ -781,169 +779,157 @@
         </div>
     </div>
 
-    <!-- Grade Modal will be inserted here -->
-
     <script>
-        // Task data structure
+        // Task data structure with CORRECT point values
         const defaultCourseData = {
             it299: {
                 1: [
                     { task: "Assignment 1", points: 40, completed: false, score: null },
                     { task: "Assignment 2", points: 20, completed: false, score: null },
-                    { task: "Discussion Topic 1 (Initial Post)", points: 5, completed: false, score: null },
-                    { task: "Discussion Topic 1 (Student Response)", points: 5, completed: false, score: null },
-                    { task: "Discussion Topic 2 (Initial Post)", points: 5, completed: false, score: null },
-                    { task: "Discussion Topic 2 (Student Response)", points: 5, completed: false, score: null },
+                    { task: "Discussion Topic 1", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Discussion Topic 2", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
                     { task: "Seminar", points: 15, completed: true, score: 15 }
                 ],
                 2: [
                     { task: "Assignment", points: 60, completed: false, score: null },
-                    { task: "Discussion Topic 1 (Initial Post)", points: 5, completed: false, score: null },
-                    { task: "Discussion Topic 1 (Student Response)", points: 5, completed: false, score: null },
-                    { task: "Discussion Topic 2 (Initial Post)", points: 5, completed: false, score: null },
-                    { task: "Discussion Topic 2 (Student Response)", points: 5, completed: false, score: null },
+                    { task: "Discussion Topic 1", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Discussion Topic 2", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
                     { task: "Seminar", points: 15, completed: false, score: null }
                 ],
                 3: [
-                    { task: "Assignment", points: 60, completed: false },
-                    { task: "Discussion Topic 1 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 1 (Student Response)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Student Response)", points: 5, completed: false },
-                    { task: "Seminar", points: 15, completed: false }
+                    { task: "Assignment", points: 60, completed: false, score: null },
+                    { task: "Discussion Topic 1", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Discussion Topic 2", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 15, completed: false, score: null }
                 ],
                 4: [
-                    { task: "Assignment", points: 60, completed: false },
-                    { task: "Discussion Topic 1 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 1 (Student Response)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Student Response)", points: 5, completed: false },
-                    { task: "Seminar", points: 15, completed: false }
+                    { task: "Assignment", points: 60, completed: false, score: null },
+                    { task: "Discussion Topic 1", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Discussion Topic 2", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 15, completed: false, score: null }
                 ],
                 5: [
-                    { task: "Assignment", points: 60, completed: false },
-                    { task: "Discussion Topic 1 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 1 (Student Response)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Student Response)", points: 5, completed: false },
-                    { task: "Seminar", points: 15, completed: false }
+                    { task: "Assignment", points: 60, completed: false, score: null },
+                    { task: "Discussion Topic 1", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Discussion Topic 2", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 15, completed: false, score: null }
                 ],
                 6: [
-                    { task: "Assignment", points: 60, completed: false },
-                    { task: "Discussion Topic 1 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 1 (Student Response)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Student Response)", points: 5, completed: false },
-                    { task: "Seminar", points: 15, completed: false }
+                    { task: "Assignment", points: 60, completed: false, score: null },
+                    { task: "Discussion Topic 1", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Discussion Topic 2", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 15, completed: false, score: null }
                 ],
                 7: [
-                    { task: "Assignment", points: 60, completed: false },
-                    { task: "Discussion Topic 1 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 1 (Student Response)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Student Response)", points: 5, completed: false },
-                    { task: "Seminar", points: 15, completed: false }
+                    { task: "Assignment", points: 60, completed: false, score: null },
+                    { task: "Discussion Topic 1", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Discussion Topic 2", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 15, completed: false, score: null }
                 ],
                 8: [
-                    { task: "Assignment", points: 60, completed: false },
-                    { task: "Discussion Topic 1 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 1 (Student Response)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Initial Post)", points: 5, completed: false },
-                    { task: "Discussion Topic 2 (Student Response)", points: 5, completed: false },
-                    { task: "Seminar", points: 15, completed: false }
+                    { task: "Assignment", points: 60, completed: false, score: null },
+                    { task: "Discussion Topic 1", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Discussion Topic 2", points: 10, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 15, completed: false, score: null }
                 ],
                 9: [
-                    { task: "Assignment", points: 95, completed: false },
-                    { task: "Discussion (Initial Post)", points: 10, completed: false },
-                    { task: "Discussion (Student Response)", points: 10, completed: false },
-                    { task: "Seminar", points: 15, completed: false }
+                    { task: "Assignment", points: 95, completed: false, score: null },
+                    { task: "Discussion", points: 20, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 15, completed: false, score: null }
                 ],
                 10: [
-                    { task: "Assignment", points: 75, completed: false },
-                    { task: "Discussion (Initial Post)", points: 10, completed: false },
-                    { task: "Discussion (Student Response)", points: 10, completed: false },
-                    { task: "Seminar", points: 15, completed: false }
+                    { task: "Assignment", points: 75, completed: false, score: null },
+                    { task: "Discussion", points: 20, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 15, completed: false, score: null }
                 ]
             },
             mm325: {
                 1: [
-                    { task: "Seminar", points: 10, completed: false },
-                    { task: "Discussion (Initial Post)", points: 10, completed: false },
-                    { task: "Discussion (Response 1)", points: 10, completed: false },
-                    { task: "Discussion (Response 2)", points: 10, completed: false },
-                    { task: "Lab", points: 36, completed: false }
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab", points: 36, completed: false, score: null }
                 ],
                 2: [
-                    { task: "Seminar", points: 10, completed: false },
-                    { task: "Discussion (Initial Post)", points: 10, completed: false },
-                    { task: "Discussion (Response 1)", points: 10, completed: false },
-                    { task: "Discussion (Response 2)", points: 10, completed: false },
-                    { task: "Lab", points: 30, completed: false },
-                    { task: "Lab Quiz", points: 50, completed: false }
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab", points: 30, completed: false, score: null },
+                    { task: "Lab Quiz", points: 50, completed: false, score: null }
                 ],
                 3: [
-                    { task: "Seminar", points: 10, completed: false },
-                    { task: "Discussion (Initial Post)", points: 10, completed: false },
-                    { task: "Discussion (Response 1)", points: 10, completed: false },
-                    { task: "Discussion (Response 2)", points: 10, completed: false },
-                    { task: "Lab", points: 36, completed: false },
-                    { task: "Assignment", points: 5, completed: false }
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab", points: 36, completed: false, score: null },
+                    { task: "Assignment", points: 5, completed: false, score: null }
                 ],
                 4: [
-                    { task: "Seminar", points: 10, completed: false },
-                    { task: "Discussion (Initial Post)", points: 10, completed: false },
-                    { task: "Discussion (Response 1)", points: 10, completed: false },
-                    { task: "Discussion (Response 2)", points: 10, completed: false },
-                    { task: "Lab", points: 30, completed: false },
-                    { task: "Lab Quiz", points: 50, completed: false }
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab", points: 30, completed: false, score: null },
+                    { task: "Lab Quiz", points: 50, completed: false, score: null }
                 ],
                 5: [
-                    { task: "Seminar", points: 10, completed: false },
-                    { task: "Discussion (Initial Post)", points: 10, completed: false },
-                    { task: "Discussion (Response 1)", points: 10, completed: false },
-                    { task: "Discussion (Response 2)", points: 10, completed: false },
-                    { task: "Lab", points: 36, completed: false },
-                    { task: "Assignment", points: 5, completed: false }
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab", points: 36, completed: false, score: null },
+                    { task: "Assignment", points: 5, completed: false, score: null }
                 ],
                 6: [
-                    { task: "Seminar", points: 10, completed: false },
-                    { task: "Discussion (Initial Post)", points: 10, completed: false },
-                    { task: "Discussion (Response 1)", points: 10, completed: false },
-                    { task: "Discussion (Response 2)", points: 10, completed: false },
-                    { task: "Lab", points: 30, completed: false },
-                    { task: "Lab Quiz", points: 50, completed: false }
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab", points: 30, completed: false, score: null },
+                    { task: "Lab Quiz", points: 50, completed: false, score: null }
                 ],
                 7: [
-                    { task: "Seminar", points: 10, completed: false },
-                    { task: "Discussion (Initial Post)", points: 10, completed: false },
-                    { task: "Discussion (Response 1)", points: 10, completed: false },
-                    { task: "Discussion (Response 2)", points: 10, completed: false },
-                    { task: "Lab", points: 36, completed: false },
-                    { task: "Assignment", points: 10, completed: false }
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab", points: 36, completed: false, score: null },
+                    { task: "Assignment", points: 10, completed: false, score: null }
                 ],
                 8: [
-                    { task: "Seminar", points: 10, completed: false },
-                    { task: "Discussion (Initial Post)", points: 10, completed: false },
-                    { task: "Discussion (Response 1)", points: 10, completed: false },
-                    { task: "Discussion (Response 2)", points: 10, completed: false },
-                    { task: "Lab", points: 30, completed: false },
-                    { task: "Lab Quiz", points: 50, completed: false }
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab", points: 30, completed: false, score: null },
+                    { task: "Lab Quiz", points: 50, completed: false, score: null }
                 ],
                 9: [
-                    { task: "Seminar", points: 10, completed: false },
-                    { task: "Discussion (Initial Post)", points: 10, completed: false },
-                    { task: "Discussion (Response 1)", points: 10, completed: false },
-                    { task: "Discussion (Response 2)", points: 10, completed: false },
-                    { task: "Lab", points: 6, completed: false },
-                    { task: "Project", points: 30, completed: false }
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab", points: 6, completed: false, score: null },
+                    { task: "Project", points: 30, completed: false, score: null }
                 ],
                 10: [
-                    { task: "Seminar", points: 10, completed: false },
-                    { task: "Discussion (Initial Post)", points: 10, completed: false },
-                    { task: "Discussion (Response 1)", points: 10, completed: false },
-                    { task: "Discussion (Response 2)", points: 10, completed: false },
-                    { task: "Lab", points: 30, completed: false },
-                    { task: "Lab Quiz", points: 50, completed: false }
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab", points: 30, completed: false, score: null },
+                    { task: "Lab Quiz", points: 50, completed: false, score: null }
                 ]
             }
         };
@@ -1093,6 +1079,19 @@
             return 'grade-f';
         }
 
+        function toggleTask(course, index) {
+            const task = courseData[course][currentWeek][index];
+            task.completed = !task.completed;
+            
+            // If unchecking a task, reset the score to null
+            if (!task.completed) {
+                task.score = null;
+            }
+            
+            saveData();
+            renderTasks();
+        }
+
         function showGradeInput(taskDiv, course, index, task) {
             showGradeModal(course, index, task);
         }
@@ -1203,19 +1202,6 @@
                 earned: totalEarned,
                 possible: totalPossible
             } : null;
-        }
-
-        function toggleTask(course, index) {
-            const task = courseData[course][currentWeek][index];
-            task.completed = !task.completed;
-            
-            // If unchecking a task, reset the score to null
-            if (!task.completed) {
-                task.score = null;
-            }
-            
-            saveData();
-            renderTasks();
         }
 
         function updateProgress() {
