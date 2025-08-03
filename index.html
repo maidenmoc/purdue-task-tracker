@@ -966,24 +966,35 @@
 
         // Update existing saved data to match new task structure
         function updateTaskStructure() {
-            // Replace the entire data structure with the new default structure
-            // This will update task names and point values but reset completion status
+            // Force replace with new structure, but preserve seminar completion
             const newData = JSON.parse(JSON.stringify(defaultCourseData));
             
-            // Keep the seminar completion status from Week 1 if it exists
+            // Check if we have old 5-point structure that needs updating
+            let needsUpdate = false;
             if (courseData.it299 && courseData.it299[1]) {
-                const oldSeminar = courseData.it299[1].find(task => task.task === "Seminar");
-                if (oldSeminar && oldSeminar.completed) {
-                    const newSeminar = newData.it299[1].find(task => task.task === "Seminar");
-                    if (newSeminar) {
-                        newSeminar.completed = oldSeminar.completed;
-                        newSeminar.score = oldSeminar.score;
-                    }
-                }
+                const hasOldStructure = courseData.it299[1].some(task => 
+                    task.task.includes("Discussion Topic") && task.points === 5
+                );
+                if (hasOldStructure) needsUpdate = true;
             }
             
-            courseData = newData;
-            saveData();
+            if (needsUpdate) {
+                // Keep the seminar completion status from Week 1 if it exists
+                if (courseData.it299 && courseData.it299[1]) {
+                    const oldSeminar = courseData.it299[1].find(task => task.task === "Seminar");
+                    if (oldSeminar && oldSeminar.completed) {
+                        const newSeminar = newData.it299[1].find(task => task.task === "Seminar");
+                        if (newSeminar) {
+                            newSeminar.completed = oldSeminar.completed;
+                            newSeminar.score = oldSeminar.score;
+                        }
+                    }
+                }
+                
+                // Replace with new structure
+                courseData = newData;
+                saveData();
+            }
         }
 
         // Save data to localStorage
