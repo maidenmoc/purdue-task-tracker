@@ -1200,7 +1200,14 @@
         }
 
         function toggleTask(course, index) {
-            courseData[course][currentWeek][index].completed = !courseData[course][currentWeek][index].completed;
+            const task = courseData[course][currentWeek][index];
+            task.completed = !task.completed;
+            
+            // If unchecking a task, reset the score to null
+            if (!task.completed) {
+                task.score = null;
+            }
+            
             saveData();
             renderTasks();
         }
