@@ -956,9 +956,34 @@
             const saved = localStorage.getItem('purdueTaskData');
             if (saved) {
                 courseData = JSON.parse(saved);
+                
+                // Update task structure to match new layout
+                updateTaskStructure();
             } else {
                 courseData = JSON.parse(JSON.stringify(defaultCourseData));
             }
+        }
+
+        // Update existing saved data to match new task structure
+        function updateTaskStructure() {
+            // Replace the entire data structure with the new default structure
+            // This will update task names and point values but reset completion status
+            const newData = JSON.parse(JSON.stringify(defaultCourseData));
+            
+            // Keep the seminar completion status from Week 1 if it exists
+            if (courseData.it299 && courseData.it299[1]) {
+                const oldSeminar = courseData.it299[1].find(task => task.task === "Seminar");
+                if (oldSeminar && oldSeminar.completed) {
+                    const newSeminar = newData.it299[1].find(task => task.task === "Seminar");
+                    if (newSeminar) {
+                        newSeminar.completed = oldSeminar.completed;
+                        newSeminar.score = oldSeminar.score;
+                    }
+                }
+            }
+            
+            courseData = newData;
+            saveData();
         }
 
         // Save data to localStorage
