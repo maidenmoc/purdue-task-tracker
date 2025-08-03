@@ -957,43 +957,33 @@
             if (saved) {
                 courseData = JSON.parse(saved);
                 
-                // Update task structure to match new layout
-                updateTaskStructure();
-            } else {
-                courseData = JSON.parse(JSON.stringify(defaultCourseData));
-            }
-        }
-
-        // Update existing saved data to match new task structure
-        function updateTaskStructure() {
-            // Force replace with new structure, but preserve seminar completion
-            const newData = JSON.parse(JSON.stringify(defaultCourseData));
-            
-            // Check if we have old 5-point structure that needs updating
-            let needsUpdate = false;
-            if (courseData.it299 && courseData.it299[1]) {
-                const hasOldStructure = courseData.it299[1].some(task => 
-                    task.task.includes("Discussion Topic") && task.points === 5
-                );
-                if (hasOldStructure) needsUpdate = true;
-            }
-            
-            if (needsUpdate) {
-                // Keep the seminar completion status from Week 1 if it exists
-                if (courseData.it299 && courseData.it299[1]) {
-                    const oldSeminar = courseData.it299[1].find(task => task.task === "Seminar");
-                    if (oldSeminar && oldSeminar.completed) {
-                        const newSeminar = newData.it299[1].find(task => task.task === "Seminar");
-                        if (newSeminar) {
-                            newSeminar.completed = oldSeminar.completed;
-                            newSeminar.score = oldSeminar.score;
+                // Force update to new structure - increment this number to force refresh
+                const currentVersion = 3;
+                const savedVersion = localStorage.getItem('purdueTaskDataVersion') || 0;
+                
+                if (savedVersion < currentVersion) {
+                    // Force new structure but preserve seminar completion
+                    const newData = JSON.parse(JSON.stringify(defaultCourseData));
+                    
+                    // Keep seminar completion if it exists
+                    if (courseData.it299 && courseData.it299[1]) {
+                        const oldSeminar = courseData.it299[1].find(task => task.task === "Seminar");
+                        if (oldSeminar && oldSeminar.completed) {
+                            const newSeminar = newData.it299[1].find(task => task.task === "Seminar");
+                            if (newSeminar) {
+                                newSeminar.completed = oldSeminar.completed;
+                                newSeminar.score = oldSeminar.score;
+                            }
                         }
                     }
+                    
+                    courseData = newData;
+                    localStorage.setItem('purdueTaskDataVersion', currentVersion);
+                    saveData();
                 }
-                
-                // Replace with new structure
-                courseData = newData;
-                saveData();
+            } else {
+                courseData = JSON.parse(JSON.stringify(defaultCourseData));
+                localStorage.setItem('purdueTaskDataVersion', 3);
             }
         }
 
