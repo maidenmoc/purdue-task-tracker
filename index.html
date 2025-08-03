@@ -1090,6 +1090,12 @@
                 gradeDisplay = `<span class="grade-display">${task.score}/${task.points} (${percentage}%)</span>`;
             }
             
+            // Only show points bubble if task has points
+            let pointsDisplay = '';
+            if (task.points > 0) {
+                pointsDisplay = `<span class="task-points">${task.points} pts</span>`;
+            }
+            
             taskDiv.innerHTML = `
                 <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} 
                        onchange="toggleTask('${course}', ${index})">
@@ -1097,11 +1103,11 @@
                     <span>${task.task}</span>
                     ${gradeDisplay}
                 </div>
-                <span class="task-points">${task.points} pts</span>
+                ${pointsDisplay}
             `;
             
-            // Add click listener for completed tasks to enter score
-            if (task.completed) {
+            // Add click listener for completed tasks to enter score (only if task has points)
+            if (task.completed && task.points > 0) {
                 taskDiv.addEventListener('click', (e) => {
                     if (e.target.type !== 'checkbox') {
                         showGradeInput(taskDiv, course, index, task);
