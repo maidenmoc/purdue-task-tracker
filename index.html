@@ -1069,13 +1069,20 @@
 
         let courseData = {};
         let currentWeek = 1;
+        const DATA_VERSION = 'winter2025'; // Change this each term to reset data
 
         function loadData() {
             const saved = localStorage.getItem('purdueTaskData');
-            if (saved) {
+            const savedVersion = localStorage.getItem('purdueTaskDataVersion');
+            
+            // If version doesn't match, reset data
+            if (saved && savedVersion === DATA_VERSION) {
                 courseData = JSON.parse(saved);
             } else {
+                // New term - reset everything
                 courseData = JSON.parse(JSON.stringify(defaultCourseData));
+                localStorage.setItem('purdueTaskDataVersion', DATA_VERSION);
+                saveData();
             }
         }
 
