@@ -16,10 +16,6 @@
         html, body {
             overflow-x: hidden;
             max-width: 100vw;
-            .cumulative-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
         }
 
         * {
@@ -806,6 +802,11 @@
                 width: 70px;
                 height: 70px;
             }
+
+            .cumulative-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
         }
     </style>
 </head>
@@ -894,3 +895,505 @@
     </div>
 
     <script>
+        // Task data structure for new term - all reset
+        const defaultCourseData = {
+            it299: {
+                1: [
+                    { task: "Assignment", points: 50, completed: false, score: null },
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 20, completed: false, score: null }
+                ],
+                2: [
+                    { task: "Assignment", points: 25, completed: false, score: null },
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 20, completed: false, score: null },
+                    { task: "Lab Quiz: 6.2.7", points: 5, completed: false, score: null },
+                    { task: "Lab Quiz: 7.1.8", points: 5, completed: false, score: null },
+                    { task: "Lab Quiz: 7.4.5", points: 5, completed: false, score: null },
+                    { task: "Lab Quiz: 9.2.11", points: 5, completed: false, score: null },
+                    { task: "Lab Quiz: 12.3.7", points: 5, completed: false, score: null }
+                ],
+                3: [
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 20, completed: false, score: null },
+                    { task: "Lab Quiz: 5.2.13", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 5.3.5", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 5.4.6", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 5.5.10", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 5.10.8", points: 10, completed: false, score: null }
+                ],
+                4: [
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 20, completed: false, score: null },
+                    { task: "Lab Quiz: 4.1.6", points: 5, completed: false, score: null },
+                    { task: "Lab Quiz: 4.2.9", points: 5, completed: false, score: null },
+                    { task: "Lab Quiz: 4.3.6", points: 5, completed: false, score: null },
+                    { task: "Lab Quiz: 4.4.15", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 4.5.14", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 4.6.14", points: 5, completed: false, score: null },
+                    { task: "Lab Quiz: 4.7.6", points: 5, completed: false, score: null },
+                    { task: "Lab Quiz: 4.9.5", points: 5, completed: false, score: null }
+                ],
+                5: [
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 20, completed: false, score: null },
+                    { task: "Lab Quiz: 8.4.6", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 8.5.5", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 8.6.9", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 10.2.7", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 10.4.7", points: 10, completed: false, score: null }
+                ],
+                6: [
+                    { task: "Assignment", points: 35, completed: false, score: null },
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 20, completed: false, score: null },
+                    { task: "Lab Quiz: 8.1.8", points: 8, completed: false, score: null },
+                    { task: "Lab Quiz: 10.9.8", points: 7, completed: false, score: null }
+                ],
+                7: [
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 20, completed: false, score: null },
+                    { task: "Lab Quiz: 3.1.14", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 3.2.5", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 3.3.6", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 3.4.10", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 3.5.10", points: 10, completed: false, score: null }
+                ],
+                8: [
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 20, completed: false, score: null },
+                    { task: "Lab Quiz: 2.1.8", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 2.3.8", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 5.7.7", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 6.5.12", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 5.9.10", points: 10, completed: false, score: null }
+                ],
+                9: [
+                    { task: "Assignment", points: 25, completed: false, score: null },
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 20, completed: false, score: null },
+                    { task: "Lab Quiz: 2.2.9", points: 5, completed: false, score: null },
+                    { task: "Lab Quiz: 6.1.4", points: 5, completed: false, score: null },
+                    { task: "Lab Quiz: 10.5.8", points: 5, completed: false, score: null },
+                    { task: "Lab Quiz: 10.6.6", points: 5, completed: false, score: null },
+                    { task: "Lab Quiz: 10.7.7", points: 5, completed: false, score: null }
+                ],
+                10: [
+                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Seminar", points: 20, completed: false, score: null },
+                    { task: "Lab Quiz: 7.3.8", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 9.1.6", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 9.4.6", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 9.5.11", points: 10, completed: false, score: null },
+                    { task: "Lab Quiz: 12.1.7", points: 10, completed: false, score: null }
+                ]
+            },
+            mm325: {
+                1: [
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 40, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab Homework", points: 35, completed: false, score: null }
+                ],
+                2: [
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 15, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab Homework", points: 35, completed: false, score: null },
+                    { task: "Lab Quiz", points: 55, completed: false, score: null }
+                ],
+                3: [
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 40, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab Homework", points: 35, completed: false, score: null }
+                ],
+                4: [
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 15, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab Homework", points: 35, completed: false, score: null },
+                    { task: "Lab Quiz", points: 55, completed: false, score: null }
+                ],
+                5: [
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 40, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab Homework", points: 35, completed: false, score: null }
+                ],
+                6: [
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 15, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab Homework", points: 35, completed: false, score: null },
+                    { task: "Lab Quiz", points: 55, completed: false, score: null }
+                ],
+                7: [
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 40, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab Homework", points: 35, completed: false, score: null }
+                ],
+                8: [
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 15, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab Homework", points: 35, completed: false, score: null },
+                    { task: "Lab Quiz", points: 55, completed: false, score: null }
+                ],
+                9: [
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 40, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab Homework", points: 35, completed: false, score: null }
+                ],
+                10: [
+                    { task: "Seminar", points: 10, completed: false, score: null },
+                    { task: "Discussion", points: 15, completed: false, score: null },
+                    { task: "↳ Response to classmate", points: 0, completed: false, score: null },
+                    { task: "Lab Homework", points: 35, completed: false, score: null },
+                    { task: "Lab Quiz", points: 55, completed: false, score: null }
+                ]
+            }
+        };
+
+        let courseData = {};
+        let currentWeek = 1;
+
+        function loadData() {
+            const saved = localStorage.getItem('purdueTaskData');
+            if (saved) {
+                courseData = JSON.parse(saved);
+            } else {
+                courseData = JSON.parse(JSON.stringify(defaultCourseData));
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('purdueTaskData', JSON.stringify(courseData));
+            showSaveIndicator();
+        }
+
+        function showSaveIndicator() {
+            const indicator = document.getElementById('saveIndicator');
+            indicator.classList.add('show');
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 2000);
+        }
+
+        function loadWeek() {
+            currentWeek = parseInt(document.getElementById('weekSelect').value);
+            renderTasks();
+        }
+
+        function renderTasks() {
+            const it299Container = document.getElementById('it299-tasks');
+            const mm325Container = document.getElementById('mm325-tasks');
+            
+            it299Container.innerHTML = '';
+            mm325Container.innerHTML = '';
+
+            courseData.it299[currentWeek].forEach((task, index) => {
+                const taskElement = createTaskElement(task, 'it299', index);
+                it299Container.appendChild(taskElement);
+            });
+
+            const it299Weekly = calculateWeeklyAverage('it299', currentWeek);
+            const it299Cumulative = calculateCumulativeAverage('it299');
+            
+            if (it299Weekly || it299Cumulative) {
+                const averageDiv = document.createElement('div');
+                averageDiv.className = 'class-average';
+                
+                let content = '';
+                if (it299Weekly) {
+                    content += `<div class="class-average-text">Week ${currentWeek}: ${it299Weekly.percentage}% (${it299Weekly.earned}/${it299Weekly.possible} pts)</div>`;
+                }
+                if (it299Cumulative) {
+                    content += `<div class="class-average-text">Term Total: ${it299Cumulative.percentage}% (${it299Cumulative.earned}/${it299Cumulative.possible} pts)</div>`;
+                }
+                
+                averageDiv.innerHTML = content;
+                it299Container.appendChild(averageDiv);
+            }
+
+            courseData.mm325[currentWeek].forEach((task, index) => {
+                const taskElement = createTaskElement(task, 'mm325', index);
+                mm325Container.appendChild(taskElement);
+            });
+
+            const mm325Weekly = calculateWeeklyAverage('mm325', currentWeek);
+            const mm325Cumulative = calculateCumulativeAverage('mm325');
+            
+            if (mm325Weekly || mm325Cumulative) {
+                const averageDiv = document.createElement('div');
+                averageDiv.className = 'class-average';
+                
+                let content = '';
+                if (mm325Weekly) {
+                    content += `<div class="class-average-text">Week ${currentWeek}: ${mm325Weekly.percentage}% (${mm325Weekly.earned}/${mm325Weekly.possible} pts)</div>`;
+                }
+                if (mm325Cumulative) {
+                    content += `<div class="class-average-text">Term Total: ${mm325Cumulative.percentage}% (${mm325Cumulative.earned}/${mm325Cumulative.possible} pts)</div>`;
+                }
+                
+                averageDiv.innerHTML = content;
+                mm325Container.appendChild(averageDiv);
+            }
+
+            updateProgress();
+            updateCumulativeGrades();
+        }
+
+        function createTaskElement(task, course, index) {
+            const taskDiv = document.createElement('div');
+            const gradeClass = getGradeClass(task);
+            taskDiv.className = `task-item ${task.completed ? 'completed' : ''} ${gradeClass}`;
+            
+            let gradeDisplay = '';
+            if (task.completed && task.score !== null && !isNaN(task.score)) {
+                const percentage = ((task.score / task.points) * 100).toFixed(0);
+                gradeDisplay = `<span class="grade-display">${task.score}/${task.points} (${percentage}%)</span>`;
+            }
+            
+            let pointsDisplay = '';
+            if (task.points > 0) {
+                pointsDisplay = `<span class="task-points">${task.points} pts</span>`;
+            }
+            
+            taskDiv.innerHTML = `
+                <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} 
+                       onchange="toggleTask('${course}', ${index})">
+                <div class="task-text">
+                    <span>${task.task}</span>
+                    ${gradeDisplay}
+                </div>
+                ${pointsDisplay}
+            `;
+            
+            if (task.completed && task.points > 0) {
+                taskDiv.addEventListener('click', (e) => {
+                    if (e.target.type !== 'checkbox') {
+                        showGradeInput(taskDiv, course, index, task);
+                    }
+                });
+            }
+            
+            return taskDiv;
+        }
+
+        function getGradeClass(task) {
+            if (!task.completed || task.score === null || isNaN(task.score)) return '';
+            
+            const percentage = (task.score / task.points) * 100;
+            if (percentage >= 90) return 'grade-a';
+            if (percentage >= 80) return 'grade-b';
+            if (percentage >= 70) return 'grade-c';
+            if (percentage >= 60) return 'grade-d';
+            return 'grade-f';
+        }
+
+        function toggleTask(course, index) {
+            const task = courseData[course][currentWeek][index];
+            task.completed = !task.completed;
+            
+            if (!task.completed) {
+                task.score = null;
+            }
+            
+            saveData();
+            renderTasks();
+        }
+
+        function showGradeInput(taskDiv, course, index, task) {
+            showGradeModal(course, index, task);
+        }
+
+        function showGradeModal(course, index, task) {
+            const modal = document.createElement('div');
+            modal.className = 'grade-modal';
+            modal.innerHTML = `
+                <div class="grade-modal-content">
+                    <div class="grade-modal-icon"></div>
+                    <div class="grade-modal-title">✨ Enter Grade ✨</div>
+                    <div class="grade-modal-subtitle">${task.task} (${task.points} pts)</div>
+                    <input type="number" class="grade-modal-input" 
+                           placeholder="Score" min="0" max="${task.points}" 
+                           step="0.5" value="${task.score || ''}">
+                    <div class="grade-modal-buttons">
+                        <button class="grade-modal-button grade-modal-save">Save</button>
+                        <button class="grade-modal-button grade-modal-cancel">Cancel</button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+            
+            setTimeout(() => modal.classList.add('show'), 10);
+            
+            const input = modal.querySelector('.grade-modal-input');
+            const saveBtn = modal.querySelector('.grade-modal-save');
+            const cancelBtn = modal.querySelector('.grade-modal-cancel');
+
+            input.focus();
+            input.select();
+
+            function saveGrade() {
+                const score = parseFloat(input.value);
+                if (!isNaN(score) && score >= 0 && score <= task.points) {
+                    courseData[course][currentWeek][index].score = score;
+                    saveData();
+                    renderTasks();
+                }
+                closeModal();
+            }
+
+            function closeModal() {
+                modal.classList.remove('show');
+                setTimeout(() => document.body.removeChild(modal), 300);
+            }
+
+            saveBtn.addEventListener('click', saveGrade);
+            cancelBtn.addEventListener('click', closeModal);
+            
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') saveGrade();
+                if (e.key === 'Escape') closeModal();
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+        }
+
+        function calculateWeeklyAverage(course, week) {
+            let totalEarned = 0;
+            let totalPossible = 0;
+            let hasGrades = false;
+
+            courseData[course][week].forEach(task => {
+                if (task.completed && task.score !== null && !isNaN(task.score)) {
+                    totalEarned += task.score;
+                    totalPossible += task.points;
+                    hasGrades = true;
+                }
+            });
+
+            return hasGrades ? {
+                percentage: ((totalEarned / totalPossible) * 100).toFixed(1),
+                earned: totalEarned,
+                possible: totalPossible
+            } : null;
+        }
+
+        function calculateCumulativeAverage(course) {
+            let totalEarned = 0;
+            let totalPossible = 0;
+            let hasGrades = false;
+
+            for (let week = 1; week <= 10; week++) {
+                courseData[course][week].forEach(task => {
+                    if (task.completed && task.score !== null && !isNaN(task.score)) {
+                        totalEarned += task.score;
+                        totalPossible += task.points;
+                        hasGrades = true;
+                    }
+                });
+            }
+
+            return hasGrades ? {
+                percentage: ((totalEarned / totalPossible) * 100).toFixed(1),
+                earned: totalEarned,
+                possible: totalPossible
+            } : null;
+        }
+
+        function updateCumulativeGrades() {
+            const it299Cumulative = calculateCumulativeAverage('it299');
+            const it299PercentageEl = document.getElementById('it299-cumulative');
+            const it299DetailsEl = document.getElementById('it299-details');
+            
+            if (it299Cumulative) {
+                it299PercentageEl.textContent = `${it299Cumulative.percentage}%`;
+                it299DetailsEl.textContent = `${it299Cumulative.earned}/${it299Cumulative.possible} points graded`;
+                it299PercentageEl.parentElement.classList.remove('no-grades');
+            } else {
+                it299PercentageEl.textContent = '--';
+                it299DetailsEl.textContent = 'No grades entered yet';
+                it299PercentageEl.parentElement.classList.add('no-grades');
+            }
+
+            const mm325Cumulative = calculateCumulativeAverage('mm325');
+            const mm325PercentageEl = document.getElementById('mm325-cumulative');
+            const mm325DetailsEl = document.getElementById('mm325-details');
+            
+            if (mm325Cumulative) {
+                mm325PercentageEl.textContent = `${mm325Cumulative.percentage}%`;
+                mm325DetailsEl.textContent = `${mm325Cumulative.earned}/${mm325Cumulative.possible} points graded`;
+                mm325PercentageEl.parentElement.classList.remove('no-grades');
+            } else {
+                mm325PercentageEl.textContent = '--';
+                mm325DetailsEl.textContent = 'No grades entered yet';
+                mm325PercentageEl.parentElement.classList.add('no-grades');
+            }
+        }
+
+        function updateProgress() {
+            const allTasks = [
+                ...courseData.it299[currentWeek],
+                ...courseData.mm325[currentWeek]
+            ];
+            
+            const totalTasks = allTasks.length;
+            const completedTasks = allTasks.filter(task => task.completed).length;
+            const totalPoints = allTasks.reduce((sum, task) => sum + task.points, 0);
+            
+            const earnedPoints = allTasks.reduce((sum, task) => {
+                if (task.completed && task.score !== null && !isNaN(task.score)) {
+                    return sum + task.score;
+                }
+                return sum;
+            }, 0);
+            
+            const gradedPoints = allTasks.reduce((sum, task) => {
+                if (task.completed && task.score !== null && !isNaN(task.score)) {
+                    return sum + task.points;
+                }
+                return sum;
+            }, 0);
+            
+            const progressPercentage = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
+
+            document.getElementById('progressBar').style.width = progressPercentage + '%';
+            
+            if (gradedPoints > 0) {
+                document.getElementById('progressText').textContent = 
+                    `${Math.round(progressPercentage)}% Complete (${completedTasks}/${totalTasks} tasks) • ${earnedPoints}/${gradedPoints} points graded`;
+            } else {
+                document.getElementById('progressText').textContent = 
+                    `${Math.round(progressPercentage)}% Complete (${completedTasks}/${totalTasks} tasks) • No grades entered yet`;
+            }
+            
+            document.getElementById('totalTasks').textContent = totalTasks;
+            document.getElementById('completedTasks').textContent = completedTasks;
+            document.getElementById('totalPoints').textContent = totalPoints;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            renderTasks();
+        });
+    </script>
+</body>
+</html>
