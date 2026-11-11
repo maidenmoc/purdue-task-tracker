@@ -839,7 +839,7 @@
             <div class="class-section">
                 <div class="class-title it299-title">
                     <div class="header-icon moon-phases"></div>
-                    <div class="class-title-text">IT286 - Network Security Concepts</div>
+                    <div class="class-title-text">IN302 - Reporting &amp; Visualization</div>
                 </div>
                 <div id="it299-tasks"></div>
             </div>
@@ -847,7 +847,7 @@
             <div class="class-section">
                 <div class="class-title mm325-title">
                     <div class="header-icon crystal-ball"></div>
-                    <div class="class-title-text">MM250 - Discrete Mathematics</div>
+                    <div class="class-title-text">IN301 - Securing Data</div>
                 </div>
                 <div id="mm325-tasks"></div>
             </div>
@@ -882,12 +882,12 @@
             <h3>Current Term Grades</h3>
             <div class="cumulative-grid">
                 <div class="cumulative-card">
-                    <div class="cumulative-course-title">IT286 - Network Security Concepts</div>
+                    <div class="cumulative-course-title">IN302 - Reporting &amp; Visualization</div>
                     <div class="cumulative-percentage" id="it299-cumulative">--</div>
                     <div class="cumulative-details" id="it299-details">No grades entered yet</div>
                 </div>
                 <div class="cumulative-card">
-                    <div class="cumulative-course-title">MM250 - Discrete Mathematics</div>
+                    <div class="cumulative-course-title">IN301 - Securing Data</div>
                     <div class="cumulative-percentage" id="mm325-cumulative">--</div>
                     <div class="cumulative-details" id="mm325-details">No grades entered yet</div>
                 </div>
@@ -897,195 +897,158 @@
 
     <script>
         // Task data structure for new term - all reset
+        // IN302 + IN301 term data. it299/mm325 are the internal slots for class 1 / class 2.
+        // Leave a slot's weeks empty to hide that class.
         const defaultCourseData = {
             it299: {
                 1: [
-                    { task: "Assignment", points: 50, completed: false, score: null },
-                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "Unit 1 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 1 Discussion", points: 20, completed: false, score: null },
                     { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
                     { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
-                    { task: "Seminar", points: 20, completed: false, score: null }
+                    { task: "Unit 1 Seminar", points: 20, completed: false, score: null }
                 ],
                 2: [
-                    { task: "Assignment", points: 25, completed: false, score: null },
-                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "Unit 2 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 2 Discussion", points: 20, completed: false, score: null },
                     { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
                     { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
-                    { task: "Seminar", points: 20, completed: false, score: null },
-                    { task: "Lab Quiz: 6.2.7", points: 5, completed: false, score: null },
-                    { task: "Lab Quiz: 7.1.8", points: 5, completed: false, score: null },
-                    { task: "Lab Quiz: 7.4.5", points: 5, completed: false, score: null },
-                    { task: "Lab Quiz: 9.2.11", points: 5, completed: false, score: null },
-                    { task: "Lab Quiz: 12.3.7", points: 5, completed: false, score: null }
+                    { task: "Unit 2 Seminar", points: 20, completed: false, score: null }
                 ],
                 3: [
-                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "Unit 3 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 3 Discussion", points: 20, completed: false, score: null },
                     { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
                     { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
-                    { task: "Seminar", points: 20, completed: false, score: null },
-                    { task: "Lab Quiz: 5.2.13", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 5.3.5", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 5.4.6", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 5.5.10", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 5.10.8", points: 10, completed: false, score: null }
+                    { task: "Unit 3 Seminar", points: 20, completed: false, score: null }
                 ],
                 4: [
-                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "Unit 4 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 4 Discussion", points: 20, completed: false, score: null },
                     { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
                     { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
-                    { task: "Seminar", points: 20, completed: false, score: null },
-                    { task: "Lab Quiz: 4.1.6", points: 5, completed: false, score: null },
-                    { task: "Lab Quiz: 4.2.9", points: 5, completed: false, score: null },
-                    { task: "Lab Quiz: 4.3.6", points: 5, completed: false, score: null },
-                    { task: "Lab Quiz: 4.4.15", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 4.5.14", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 4.6.14", points: 5, completed: false, score: null },
-                    { task: "Lab Quiz: 4.7.6", points: 5, completed: false, score: null },
-                    { task: "Lab Quiz: 4.9.5", points: 5, completed: false, score: null }
+                    { task: "Unit 4 Seminar", points: 20, completed: false, score: null }
                 ],
                 5: [
-                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "Unit 5 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 5 Discussion", points: 20, completed: false, score: null },
                     { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
                     { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
-                    { task: "Seminar", points: 20, completed: false, score: null },
-                    { task: "Lab Quiz: 8.4.6", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 8.5.5", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 8.6.9", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 10.2.7", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 10.4.7", points: 10, completed: false, score: null }
+                    { task: "Unit 5 Seminar", points: 20, completed: false, score: null }
                 ],
                 6: [
-                    { task: "Assignment", points: 35, completed: false, score: null },
-                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "Unit 6 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 6 Discussion", points: 20, completed: false, score: null },
                     { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
                     { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
-                    { task: "Seminar", points: 20, completed: false, score: null },
-                    { task: "Lab Quiz: 8.1.8", points: 8, completed: false, score: null },
-                    { task: "Lab Quiz: 10.9.8", points: 7, completed: false, score: null }
+                    { task: "Unit 6 Seminar", points: 20, completed: false, score: null }
                 ],
                 7: [
-                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "Unit 7 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 7 Discussion", points: 20, completed: false, score: null },
                     { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
                     { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
-                    { task: "Seminar", points: 20, completed: false, score: null },
-                    { task: "Lab Quiz: 3.1.14", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 3.2.5", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 3.3.6", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 3.4.10", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 3.5.10", points: 10, completed: false, score: null }
+                    { task: "Unit 7 Seminar", points: 20, completed: false, score: null }
                 ],
                 8: [
-                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "Unit 8 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 8 Discussion", points: 20, completed: false, score: null },
                     { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
                     { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
-                    { task: "Seminar", points: 20, completed: false, score: null },
-                    { task: "Lab Quiz: 2.1.8", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 2.3.8", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 5.7.7", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 6.5.12", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 5.9.10", points: 10, completed: false, score: null }
+                    { task: "Unit 8 Seminar", points: 20, completed: false, score: null }
                 ],
                 9: [
-                    { task: "Assignment", points: 25, completed: false, score: null },
-                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "Unit 9 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 9 Discussion", points: 20, completed: false, score: null },
                     { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
                     { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
-                    { task: "Seminar", points: 20, completed: false, score: null },
-                    { task: "Lab Quiz: 2.2.9", points: 5, completed: false, score: null },
-                    { task: "Lab Quiz: 6.1.4", points: 5, completed: false, score: null },
-                    { task: "Lab Quiz: 10.5.8", points: 5, completed: false, score: null },
-                    { task: "Lab Quiz: 10.6.6", points: 5, completed: false, score: null },
-                    { task: "Lab Quiz: 10.7.7", points: 5, completed: false, score: null }
+                    { task: "Unit 9 Seminar", points: 20, completed: false, score: null }
                 ],
                 10: [
-                    { task: "Discussion", points: 30, completed: false, score: null },
+                    { task: "Unit 10 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 10 Discussion", points: 20, completed: false, score: null },
                     { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
                     { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
-                    { task: "Seminar", points: 20, completed: false, score: null },
-                    { task: "Lab Quiz: 7.3.8", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 9.1.6", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 9.4.6", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 9.5.11", points: 10, completed: false, score: null },
-                    { task: "Lab Quiz: 12.1.7", points: 10, completed: false, score: null }
+                    { task: "Unit 10 Seminar", points: 20, completed: false, score: null }
                 ]
             },
             mm325: {
                 1: [
-                    { task: "Seminar", points: 10, completed: false, score: null },
-                    { task: "Discussion Post 1", points: 40, completed: false, score: null },
-                    { task: "↳ Post 2: Reply to classmate", points: 0, completed: false, score: null },
-                    { task: "↳ Post 3: Reply to another classmate", points: 0, completed: false, score: null },
-                    { task: "Lab Homework", points: 35, completed: false, score: null }
+                    { task: "Unit 1 Discussion", points: 20, completed: false, score: null },
+                    { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
+                    { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
+                    { task: "Unit 1 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 1 Seminar", points: 20, completed: false, score: null }
                 ],
                 2: [
-                    { task: "Seminar", points: 10, completed: false, score: null },
-                    { task: "Discussion Post 1", points: 15, completed: false, score: null },
-                    { task: "↳ Post 2", points: 0, completed: false, score: null },
-                    { task: "Lab Homework", points: 35, completed: false, score: null },
-                    { task: "Lab Quiz", points: 55, completed: false, score: null }
+                    { task: "Unit 2 Discussion", points: 20, completed: false, score: null },
+                    { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
+                    { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
+                    { task: "Unit 2 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 2 Seminar", points: 20, completed: false, score: null }
                 ],
                 3: [
-                    { task: "Seminar", points: 10, completed: false, score: null },
-                    { task: "Discussion Post 1", points: 40, completed: false, score: null },
-                    { task: "↳ Post 2: Reply to classmate", points: 0, completed: false, score: null },
-                    { task: "↳ Post 3: Reply to another classmate", points: 0, completed: false, score: null },
-                    { task: "Lab Homework", points: 35, completed: false, score: null }
+                    { task: "Unit 3 Discussion", points: 20, completed: false, score: null },
+                    { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
+                    { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
+                    { task: "Unit 3 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 3 Seminar", points: 20, completed: false, score: null }
                 ],
                 4: [
-                    { task: "Seminar", points: 10, completed: false, score: null },
-                    { task: "Discussion Post 1", points: 15, completed: false, score: null },
-                    { task: "↳ Post 2", points: 0, completed: false, score: null },
-                    { task: "Lab Homework", points: 35, completed: false, score: null },
-                    { task: "Lab Quiz", points: 55, completed: false, score: null }
+                    { task: "Unit 4 Discussion", points: 20, completed: false, score: null },
+                    { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
+                    { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
+                    { task: "Unit 4 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 4 Seminar", points: 20, completed: false, score: null }
                 ],
                 5: [
-                    { task: "Seminar", points: 10, completed: false, score: null },
-                    { task: "Discussion Post 1", points: 40, completed: false, score: null },
-                    { task: "↳ Post 2: Reply to classmate", points: 0, completed: false, score: null },
-                    { task: "↳ Post 3: Reply to another classmate", points: 0, completed: false, score: null },
-                    { task: "Lab Homework", points: 35, completed: false, score: null }
+                    { task: "Unit 5 Discussion", points: 20, completed: false, score: null },
+                    { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
+                    { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
+                    { task: "Unit 5 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 5 Seminar", points: 20, completed: false, score: null }
                 ],
                 6: [
-                    { task: "Seminar", points: 10, completed: false, score: null },
-                    { task: "Discussion Post 1", points: 15, completed: false, score: null },
-                    { task: "↳ Post 2", points: 0, completed: false, score: null },
-                    { task: "Lab Homework", points: 35, completed: false, score: null },
-                    { task: "Lab Quiz", points: 55, completed: false, score: null }
+                    { task: "Unit 6 Discussion", points: 20, completed: false, score: null },
+                    { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
+                    { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
+                    { task: "Unit 6 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 6 Seminar", points: 20, completed: false, score: null }
                 ],
                 7: [
-                    { task: "Seminar", points: 10, completed: false, score: null },
-                    { task: "Discussion Post 1", points: 40, completed: false, score: null },
-                    { task: "↳ Post 2: Reply to classmate", points: 0, completed: false, score: null },
-                    { task: "↳ Post 3: Reply to another classmate", points: 0, completed: false, score: null },
-                    { task: "Lab Homework", points: 35, completed: false, score: null }
+                    { task: "Unit 7 Discussion", points: 20, completed: false, score: null },
+                    { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
+                    { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
+                    { task: "Unit 7 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 7 Seminar", points: 20, completed: false, score: null }
                 ],
                 8: [
-                    { task: "Seminar", points: 10, completed: false, score: null },
-                    { task: "Discussion Post 1", points: 15, completed: false, score: null },
-                    { task: "↳ Post 2", points: 0, completed: false, score: null },
-                    { task: "Lab Homework", points: 35, completed: false, score: null },
-                    { task: "Lab Quiz", points: 55, completed: false, score: null }
+                    { task: "Unit 8 Discussion", points: 20, completed: false, score: null },
+                    { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
+                    { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
+                    { task: "Unit 8 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 8 Seminar", points: 20, completed: false, score: null }
                 ],
                 9: [
-                    { task: "Seminar", points: 10, completed: false, score: null },
-                    { task: "Discussion Post 1", points: 40, completed: false, score: null },
-                    { task: "↳ Post 2: Reply to classmate", points: 0, completed: false, score: null },
-                    { task: "↳ Post 3: Reply to another classmate", points: 0, completed: false, score: null },
-                    { task: "Lab Homework", points: 35, completed: false, score: null }
+                    { task: "Unit 9 Discussion", points: 20, completed: false, score: null },
+                    { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
+                    { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
+                    { task: "Unit 9 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 9 Seminar", points: 20, completed: false, score: null }
                 ],
                 10: [
-                    { task: "Seminar", points: 10, completed: false, score: null },
-                    { task: "Discussion Post 1", points: 15, completed: false, score: null },
-                    { task: "↳ Post 2", points: 0, completed: false, score: null },
-                    { task: "Lab Homework", points: 35, completed: false, score: null },
-                    { task: "Lab Quiz", points: 55, completed: false, score: null }
+                    { task: "Unit 10 Discussion", points: 20, completed: false, score: null },
+                    { task: "↳ Response to classmate 1", points: 0, completed: false, score: null },
+                    { task: "↳ Response to classmate 2", points: 0, completed: false, score: null },
+                    { task: "Unit 10 Assignment", points: 60, completed: false, score: null },
+                    { task: "Unit 10 Seminar", points: 20, completed: false, score: null }
                 ]
             }
         };
 
         let courseData = {};
         let currentWeek = 1;
-        const DATA_VERSION = 'winter2025-v5'; // Change this each term to reset data
+        const DATA_VERSION = 'fall2026-in302-in301-v1'; // Change this each term to reset data
 
         function resetData() {
             if (confirm('This will reset ALL your data and grades. Are you sure?')) {
@@ -1425,8 +1388,24 @@
             document.getElementById('totalPoints').textContent = totalPoints;
         }
 
+
+        function hideEmptyCourses() {
+            ['it299', 'mm325'].forEach(course => {
+                const hasTasks = Object.values(courseData[course] || {}).some(w => w.length > 0);
+                if (!hasTasks) {
+                    const section = document.getElementById(course + '-tasks').closest('.class-section');
+                    const card = document.getElementById(course + '-cumulative').closest('.cumulative-card');
+                    if (section) section.style.display = 'none';
+                    if (card) card.style.display = 'none';
+                    document.querySelector('.classes-container').style.gridTemplateColumns = '1fr';
+                    document.querySelector('.cumulative-grid').style.gridTemplateColumns = '1fr';
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             loadData();
+            hideEmptyCourses();
             renderTasks();
         });
     </script>
